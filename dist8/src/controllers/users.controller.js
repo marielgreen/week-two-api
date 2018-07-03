@@ -22,7 +22,11 @@ let UsersController = class UsersController {
     async getAllUsers() {
         return await this.usersRepo.find();
     }
-    async getOneUser(usersId) {
+    async getOneUserById(usersId) {
+        let usersExist = !!(await this.usersRepo.count({ usersId }));
+        if (!usersExist) {
+            throw new rest_1.HttpErrors.BadRequest('user Id ${id} does not exist');
+        }
         return await this.usersRepo.find({
             where: {
                 usersId: usersId
@@ -31,18 +35,18 @@ let UsersController = class UsersController {
     }
 };
 __decorate([
-    rest_1.get("users"),
+    rest_1.get("/users"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "getAllUsers", null);
 __decorate([
     rest_1.get("/users/{userId}"),
-    __param(0, rest_1.param.path.string("usersID")),
+    __param(0, rest_1.param.path.number("usersId")),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
-], UsersController.prototype, "getOneUser", null);
+], UsersController.prototype, "getOneUserById", null);
 UsersController = __decorate([
     __param(0, repository_1.repository(users_repository_1.UsersRepository.name)),
     __metadata("design:paramtypes", [users_repository_1.UsersRepository])

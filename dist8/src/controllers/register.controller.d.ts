@@ -3,5 +3,5 @@ import { Users } from "../models/users";
 export declare class RegisterController {
     private usersRepo;
     constructor(usersRepo: UsersRepository);
-    createRepository(users: Users): Promise<Users>;
+    registerUser(users: Users): Promise<Users>;
 }

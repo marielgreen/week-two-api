@@ -23,7 +23,12 @@ export class WeekTwoApiApplication extends BootMixin(
 
     var dataSourceConfig = new juggler.DataSource({
       name: "db",
-      connector: "memory"
+      connector: 'loopback-connector-mysql',
+      host: 'localhost',
+      port: 3306,
+      database: 'myproject',
+      user: 'root',
+      password: '',
     });
     this.dataSource(dataSourceConfig);
 

@@ -12,7 +12,12 @@ class WeekTwoApiApplication extends boot_1.BootMixin(repository_1.RepositoryMixi
         // Set up the custom sequence
         var dataSourceConfig = new repository_1.juggler.DataSource({
             name: "db",
-            connector: "memory"
+            connector: 'loopback-connector-mysql',
+            host: 'localhost',
+            port: 3306,
+            database: 'myproject',
+            user: 'root',
+            password: '',
         });
         this.dataSource(dataSourceConfig);
         this.projectRoot = __dirname;

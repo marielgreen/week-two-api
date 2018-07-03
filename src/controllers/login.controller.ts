@@ -1,6 +1,6 @@
 import { repository } from "@loopback/repository";
 import { UsersRepository } from "../repositories/users.repository";
-import { get, param } from "@loopback/rest";
+import { get, param, HttpErrors, post, requestBody } from "@loopback/rest";
 import { Users } from "../models/users";
 
 export class LoginController {

@@ -10,7 +10,7 @@ export class RegisterController {
   ) { }
 
   @post('/register')
-  async createRepository(@requestBody() users: Users) {
+  async registerUser(@requestBody() users: Users): Promise<Users> {
     if (!users.email || !users.password) {
       throw new HttpErrors.BadRequest('missing data');
     }
