@@ -11,8 +11,14 @@ export class RegisterController {
 
   @post('/register')
   async createRepository(@requestBody() users: Users) {
-    if (!users.email || !users.email || !users.name) {
-      throw new HttpErrors.BadRequest('Not enough information entered');
+    if (!users.email || !users.password) {
+      throw new HttpErrors.BadRequest('missing data');
+    }
+
+    let usersExist: boolean = !!(await this.usersRepo.count({ email: users.email }));
+
+    if (usersExist) {
+      throw new HttpErrors.BadRequest('user already exists');
     }
     {
       return await this.usersRepo.create(users);

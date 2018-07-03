@@ -21,8 +21,12 @@ let RegisterController = class RegisterController {
         this.usersRepo = usersRepo;
     }
     async createRepository(users) {
-        if (!users.email || !users.email || !users.name) {
-            throw new rest_1.HttpErrors.BadRequest('Not enough information entered');
+        if (!users.email || !users.password) {
+            throw new rest_1.HttpErrors.BadRequest('missing data');
+        }
+        let usersExist = !!(await this.usersRepo.count({ email: users.email }));
+        if (usersExist) {
+            throw new rest_1.HttpErrors.BadRequest('user already exists');
         }
         {
             return await this.usersRepo.create(users);
